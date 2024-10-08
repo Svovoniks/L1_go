@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"slices"
 )
 
@@ -13,7 +15,13 @@ func reverse(str string) string {
 }
 
 func main() {
-	st := "главрыба 🌞"
+	sc := bufio.NewScanner(os.Stdin)
+	sc.Scan()
+
+	if sc.Err() != nil {
+		fmt.Println("Couldn't read input")
+	}
+	st := sc.Text()
 
 	fmt.Println(reverse(st))
 }

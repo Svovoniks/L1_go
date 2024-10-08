@@ -1,8 +1,19 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"unsafe"
 )
+
+func SprintNum(num int64) string {
+	byteSliceRev := *(*[8]byte)(unsafe.Pointer(&num))
+	str := bytes.Buffer{}
+	for i := 0; i < 8; i++ {
+		str.WriteString(fmt.Sprintf("%08b", byteSliceRev[7-i]))
+	}
+	return str.String()
+}
 
 func main() {
 	var num int64
@@ -15,8 +26,7 @@ func main() {
 		return
 	}
 
-    fmt.Printf("num before bin: %b dec: %v\n", num, num)
-	fmt.Printf("i %b\n", i)
+	fmt.Printf("num before bin: %v dec: %v\n", SprintNum(num), num)
 
 	if bitVal == 1 {
 		var mask int64 = (1 << i)
@@ -26,5 +36,5 @@ func main() {
 		num &= mask
 	}
 
-    fmt.Printf("num after bin: %b, dec: %v\n", num, num)
+	fmt.Printf("num after bin:  %v dec: %v\n", SprintNum(num), num)
 }

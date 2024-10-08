@@ -4,27 +4,24 @@ import (
 	"fmt"
 )
 
-func GetSquare(num int, ch chan int) {
+func GetSquare(num int, ch chan<- int) {
 	ch <- num * num
 }
 
 func main() {
 	arr := [...]int{2, 4, 6, 8, 10}
 
-	var chArr []chan int
+	ch := make(chan int, len(arr))
 
 	for _, i := range arr {
-		ch := make(chan int)
-		chArr = append(chArr, ch)
-
 		go GetSquare(i, ch)
 	}
 
 	sum := 0
-
-	for _, i := range chArr {
-		sum += <-i
+	for range arr {
+		sum += <-ch
 	}
+	close(ch)
 
-    fmt.Println(sum)
+	fmt.Println(sum)
 }

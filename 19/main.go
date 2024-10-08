@@ -20,7 +20,7 @@ func main() {
 
 	if sc.Err() != nil {
 		fmt.Println("Couldn't read input")
-        return
+		return
 	}
 	st := sc.Text()
 

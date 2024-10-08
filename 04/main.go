@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-func Worker(idx int, dataChan chan int, wg *sync.WaitGroup) {
+func Worker(idx int, dataChan <-chan int, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for {
@@ -35,15 +35,16 @@ func main() {
 		return
 	}
 
-    if workerCount < 1 {
-        fmt.Println("Need at least 1 worker")
-        return
-    }
+	if workerCount < 1 {
+		fmt.Println("Need at least 1 worker")
+		return
+	}
 
 	dataChan := make(chan int)
 	var wg sync.WaitGroup
 
 	for i := range workerCount {
+		wg.Add(1)
 		go Worker(i, dataChan, &wg)
 	}
 

@@ -39,9 +39,12 @@ func main() {
 		defer wg.Done()
 		for {
 			select {
-			case <-chan2:
-				fmt.Println(2, "stopped")
-				return
+			case v, ok := <-chan2:
+				if !ok {
+					fmt.Println(2, "stopped")
+					return
+				}
+				fmt.Println(v)
 			default:
 				fmt.Println(2, "working")
 			}
@@ -74,7 +77,7 @@ func main() {
 
 	wg.Wait()
 
-	// Завершим рутину по таймйуту
+	// Завершим рутину по таймауту
 	ctx4, cancel4 := context.WithTimeout(context.Background(), time.Second)
 
 	wg.Add(1)

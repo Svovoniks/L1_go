@@ -4,8 +4,8 @@ import "fmt"
 
 func RemoveElementAt(arr []int, idx int) []int {
 	newArr := make([]int, 0)
-    newArr = append(newArr, arr[:idx]...)
-    newArr = append(newArr, arr[idx+1:]...)
+	newArr = append(newArr, arr[:idx]...)
+	newArr = append(newArr, arr[idx+1:]...)
 	return newArr
 }
 func main() {

@@ -25,7 +25,7 @@ func main() {
 	var x float64
 	var y float64
 
-    fmt.Println("Enter x and y for point 1")
+	fmt.Println("Enter x and y for point 1")
 	if _, err := fmt.Scanln(&x, &y); err != nil {
 		fmt.Println("Incorrect input format")
 		return
@@ -33,12 +33,12 @@ func main() {
 
 	p1 := NewPoint(x, y)
 
-    fmt.Println("Enter x and y for point 2")
+	fmt.Println("Enter x and y for point 2")
 	if _, err := fmt.Scanln(&x, &y); err != nil {
 		fmt.Println("Incorrect input format")
 	}
 
 	p2 := NewPoint(x, y)
 
-    fmt.Println("Distance:", p1.GetDistanceFrom(p2))
+	fmt.Println("Distance:", p1.GetDistanceFrom(p2))
 }

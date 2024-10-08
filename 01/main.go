@@ -4,7 +4,7 @@ import "fmt"
 
 type Human struct {
 	name string
-    age  int
+	age  int
 }
 
 func (h *Human) GetName() string {
@@ -20,7 +20,10 @@ type Action struct {
 }
 
 func main() {
-	h := Human{name: "Bob"}
+	h := Human{
+		name: "Bob",
+		age:  100,
+	}
 
 	a := Action{Human: h}
 

@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func binSearch(val int, arr []int) int {
+func BinSearch(val int, arr []int) int {
 	var end int = len(arr) - 1
 	var start int = 0
 
@@ -29,6 +29,9 @@ func main() {
 	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 
 	for _, i := range arr {
-		fmt.Println(i, binSearch(i, arr))
+		fmt.Println(i, BinSearch(i, arr))
 	}
+
+	fmt.Println(0, BinSearch(10, arr))
+	fmt.Println(10, BinSearch(10, arr))
 }

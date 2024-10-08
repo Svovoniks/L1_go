@@ -6,7 +6,7 @@ import (
 )
 
 func GetType(v interface{}) string {
-	switch reflect.ValueOf(v).Kind() {
+	switch reflect.TypeOf(v).Kind() {
 	case reflect.Int:
 		return "int"
 	case reflect.String:

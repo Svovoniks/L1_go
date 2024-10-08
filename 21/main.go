@@ -32,7 +32,7 @@ type IntAdapter struct {
 }
 
 func (ia *IntAdapter) getDataString() string {
-    return strconv.Itoa(ia.ip.getDataInt())
+	return strconv.Itoa(ia.ip.getDataInt())
 }
 
 func main() {
@@ -46,5 +46,5 @@ func main() {
 		ip: intProvider,
 	}
 
-    printer.Print(intProviderAdapter)
+	printer.Print(intProviderAdapter)
 }

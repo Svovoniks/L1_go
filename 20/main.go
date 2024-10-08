@@ -1,25 +1,27 @@
 package main
 
 import (
-	"bytes"
+	"bufio"
 	"fmt"
+	"os"
+	"slices"
 	"strings"
 )
 
 func reverseString(str string) string {
-	buffer := new(bytes.Buffer)
-
 	sl := strings.Split(str, " ")
-	for i := range sl {
-		buffer.WriteString(sl[len(sl) - i - 1])
-        buffer.WriteRune(' ')
-	}
-
-	return buffer.String()
+	slices.Reverse(sl)
+	return strings.Join(sl, " ")
 }
 
 func main() {
-	st := "snow dog sun"
+	sc := bufio.NewScanner(os.Stdin)
+	sc.Scan()
+
+	if sc.Err() != nil {
+		fmt.Println("Couldn't read input")
+	}
+	st := sc.Text()
 
 	fmt.Println(reverseString(st))
 }

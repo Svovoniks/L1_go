@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-func writeArray(arr []int, ch chan int, wg *sync.WaitGroup) {
+func writeArray(arr []int, ch chan<- int, wg *sync.WaitGroup) {
 	for _, i := range arr {
 		ch <- i
 	}
@@ -14,7 +14,7 @@ func writeArray(arr []int, ch chan int, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func square(chFrom chan int, chTo chan int, wg *sync.WaitGroup) {
+func square(chFrom <-chan int, chTo chan<- int, wg *sync.WaitGroup) {
 	for {
 		val, ok := <-chFrom
 		if !ok {
@@ -27,7 +27,7 @@ func square(chFrom chan int, chTo chan int, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func printStdout(ch chan int, wg *sync.WaitGroup) {
+func printStdout(ch <-chan int, wg *sync.WaitGroup) {
 	for {
 		val, ok := <-ch
 		if !ok {
@@ -45,15 +45,14 @@ func main() {
 	ch1 := make(chan int)
 	ch2 := make(chan int)
 
-    wg.Add(1)
-    go writeArray(arr, ch1, &wg)
+	wg.Add(1)
+	go writeArray(arr, ch1, &wg)
 
-    wg.Add(1)
-    go square(ch1, ch2, &wg)
+	wg.Add(1)
+	go square(ch1, ch2, &wg)
 
-    wg.Add(1)
-    go printStdout(ch2, &wg)
+	wg.Add(1)
+	go printStdout(ch2, &wg)
 
-    wg.Wait()
+	wg.Wait()
 }
-

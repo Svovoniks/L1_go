@@ -9,7 +9,7 @@ import (
 )
 
 type AsyncMap struct {
-	mutex    sync.Mutex
+	mutex    sync.RWMutex
 	writeMap map[int]int
 }
 
@@ -17,6 +17,22 @@ func (am *AsyncMap) write(key int, value int) {
 	am.mutex.Lock()
 	am.writeMap[key] = value
 	am.mutex.Unlock()
+}
+
+func (am *AsyncMap) ReadAll() (allItems []struct {
+	key int
+	val int
+}) {
+	am.mutex.RLock()
+	for key, val := range am.writeMap {
+		allItems = append(allItems, struct {
+			key int
+			val int
+		}{key: key, val: val})
+	}
+	am.mutex.RUnlock()
+
+	return allItems
 }
 
 func writer(ctx context.Context, mp *AsyncMap) {
@@ -44,5 +60,5 @@ func main() {
 	time.Sleep(time.Second)
 
 	cancel()
-
+	fmt.Println(mp.ReadAll())
 }

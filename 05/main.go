@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Cousume(channel chan int, ctx context.Context, wg *sync.WaitGroup) {
+func Cousume(channel <-chan int, ctx context.Context, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	for {
@@ -21,7 +21,7 @@ func Cousume(channel chan int, ctx context.Context, wg *sync.WaitGroup) {
 	}
 }
 
-func Produce(channel chan int, ctx context.Context, wg *sync.WaitGroup) {
+func Produce(channel chan<- int, ctx context.Context, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	counter := 0

@@ -19,9 +19,12 @@ func IsUnique(str string) bool {
 	return true
 }
 
-func main(){
-    var str string
-    fmt.Scanln(&str)
-    fmt.Println(IsUnique(str))
+func main() {
+	var str string
+	if _, err := fmt.Scanln(&str); err != nil {
+		fmt.Println("Couldn't parse input")
+		return
+	}
+	fmt.Println(IsUnique(str))
 
 }
